@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import logging
 import telegram
-from commands.cat import CatQueue, install_telegram, NAMES_IDS
+from commands.cat import CatQueue, NAMES_IDS
 from functools import partial
 from telegram.ext import Updater, CommandHandler
 
