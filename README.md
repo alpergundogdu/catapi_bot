@@ -3,7 +3,7 @@ Sends cat images to discord servers and telegram groups
 
 ## Installing dependencies
 ```
-pip3 install -r requirements.txt
+> pip3 install -r requirements.txt
 ```
 
 ## Running the discord bot
