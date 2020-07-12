@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import argparse
 import logging
 import telegram
 from commands.cat import CatQueue, NAMES_IDS
@@ -8,7 +9,11 @@ from telegram.ext import Updater, CommandHandler
 logging.basicConfig(level=logging.WARNING,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-TOKEN = '<Get bot token from https://t.me/botfather>'
+parser = argparse.ArgumentParser(description='Run a telegram bot.')
+parser.add_argument('--token', required=True, help='API token for the telegram bot, retrieved from https://t.me/botfather')
+args = parser.parse_args()
+
+TOKEN = args.token
 
 bot = telegram.Bot(token=TOKEN)
 updater = Updater(token=TOKEN)
