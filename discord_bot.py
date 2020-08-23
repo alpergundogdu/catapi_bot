@@ -44,9 +44,9 @@ class CatApiBot(discord.Client):
         command = message.content[1:].lower()
         if command == 'cat' or command in CAT_EMOJIS:
             await message.channel.send('Here\'s your cat! ' + cat_queue.get())
-        if command == 'breeds':
+        if command == 'catbreeds':
             await message.channel.send('Breeds: ' + ', '.join(['+' + name for name in NAMES_IDS.keys()]))
-        if command == 'invite':
+        if command == 'catinvite':
             await message.channel.send(f'Please use this link to invite me to your server: {INVITE_LINK}')
         if command in BREEDS_LOWER:
             await message.channel.send(get_cat_breed(command))
@@ -55,8 +55,8 @@ class CatApiBot(discord.Client):
                 'Thanks for using CatBot! \n' +
                 'Commands: \n' +
                 '+cat gives you a random cat image \n' +
-                '+breeds lists available breeds (e.g. +siamese gives you a Siamese cat) \n' +
-                '+invite to invite me to another server \n' + 
+                '+catBreeds lists available breeds (e.g. +siamese gives you a Siamese cat) \n' +
+                '+catInvite to invite me to another server \n' +
                 '+help shows this message \n' +
                 f'Any concerns, PM {CREATOR} on Discord.')
 
