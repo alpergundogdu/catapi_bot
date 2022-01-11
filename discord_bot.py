@@ -50,6 +50,8 @@ class CatApiBot(discord.Client):
             await message.channel.send(f'Please use this link to invite me to your server: {INVITE_LINK}')
         if command in BREEDS_LOWER:
             await message.channel.send(get_cat_breed(command))
+        if command == 'catservers':
+            await message.channel.send("# of servers: " + str(len(self.guilds)))
         if command == 'help':
             await message.channel.send(
                 'Thanks for using CatBot! \n' +
