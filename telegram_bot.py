@@ -20,11 +20,11 @@ updater = Updater(token=TOKEN)
 dispatcher = updater.dispatcher
 
 
-def fetch_cat(cat_queue, bot, update):
+def fetch_cat(cat_queue, update, context):
     update.message.reply_photo(cat_queue.get())
 
 
-def fetch_breeds(bot, update):
+def fetch_breeds(update, context):
     update.message.reply_text(
         'Breeds: ' + ', '.join(['/' + name for name in sorted(NAMES_IDS.keys())]))
 
