@@ -27,7 +27,7 @@ async def fetch_breeds(update):
 
 def install_telegram(application):
     application.add_handler(CommandHandler(
-        ['start', 'cat'], partial(fetch_cat, CatQueue(capacity=50))))
+        ['start', 'cat'], partial(fetch_cat, CatQueue())))
     for name, breed_id in NAMES_IDS.items():
         application.add_handler(CommandHandler(
             name, partial(fetch_cat, CatQueue([breed_id]))
