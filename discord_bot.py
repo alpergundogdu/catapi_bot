@@ -4,9 +4,12 @@ import discord
 from commands.cat import CatQueue, NAMES_IDS
 
 parser = argparse.ArgumentParser(description='Run a discord bot.')
-parser.add_argument('--token', type=str, help='API token for the discord bot, retrieved from https://discord.com/developers')
-parser.add_argument('--client_id', type=str, help='Client ID of the bot, retrieved from https://discord.com/developers')
-parser.add_argument('--creator', type=str, help='Discord ID of the creator of this bot, that\'s you!')
+parser.add_argument('--token', type=str,
+                    help='API token for the discord bot, retrieved from https://discord.com/developers')
+parser.add_argument('--client_id', type=str,
+                    help='Client ID of the bot, retrieved from https://discord.com/developers')
+parser.add_argument('--creator', type=str,
+                    help='Discord ID of the creator of this bot, that\'s you!')
 args = parser.parse_args()
 
 CLIENT_ID = args.client_id
@@ -25,14 +28,17 @@ BREEDS_LOWER = dict([(name.lower(), name) for name in NAMES_IDS.keys()])
 
 CAT_EMOJIS = ['🐱', '🙀', '😾', '😿', '😼', '😻', '😺', '😹', '😸', '😽', '🐅', '🐈']
 
+
 def add_whitespace(text):
     return "".join([(' ' + char if char.isupper() else char) for char in list(text)]).strip()
+
 
 def get_cat_breed(breed):
     breed = BREEDS_LOWER[breed]
     name = add_whitespace(breed)
     image = BREED_QUEUES[breed].get()
     return 'Here\'s your ' + name + ' cat! ' + image
+
 
 class CatApiBot(discord.Client):
     async def on_ready(self):
@@ -63,5 +69,8 @@ class CatApiBot(discord.Client):
                 f'Any concerns, PM {CREATOR} on Discord.')
 
 
-client = CatApiBot()
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = CatApiBot(intents=intents)
 client.run(API_TOKEN)

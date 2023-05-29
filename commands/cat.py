@@ -1,12 +1,6 @@
 #!/usr/bin/python3
-from telegram.ext import CommandHandler
-from urllib.request import urlopen
-from functools import partial
-
 import json
-import threading
-import queue
-import time
+import urllib.request
 
 CAT_API_URL = 'https://api.thecatapi.com/v1/images/search?mime_types=png,jpg'
 BREED_URL = 'https://api.thecatapi.com/v1/images/search?mime_types=png,jpg&breed_ids='
@@ -16,35 +10,21 @@ NAMES_IDS = {"Abyssinian": "abys", "Aegean": "aege", "AmericanBobtail": "abob", 
 
 
 def load_cat_url(url):
-    json_data = json.loads(urlopen(url).read())
+    json_data = json.loads(urllib.request.urlopen(url).read())
     return json_data[0].get('url')
 
 
 class CatQueue():
-    def __init__(self, breeds=None, capacity=10):
-        self.queue = queue.Queue(capacity)
+    def __init__(self, breeds=None):
         if breeds == None:
             self.url = CAT_API_URL
         else:
             self.url = BREED_URL + ",".join(breeds)
-        self.thread = threading.Thread(target=self.cat_pusher, daemon=True)
-        self.thread.start()
-
-    def cat_pusher(self):
-        while True:
-            self.queue.put(load_cat_url(self.url))
 
     def get(self):
-        return self.queue.get()
-
-    def size(self):
-        return self.queue.qsize()
+        return load_cat_url(self.url)
 
 
 if __name__ == "__main__":
-    cat_queue = CatQueue(breeds=['tvan'])
-    while True:
-        input("Press enter to fetch a cat\n")
-        file_name = cat_queue.get()
-        print(file_name)
-        print("Size: " + str(cat_queue.size()))
+    cat_queue = CatQueue()
+    print(cat_queue.get())
